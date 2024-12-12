@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Registro de Empleados</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+    <script src="qrcode.min.js"></script>
+  </head>
+  <body>
+    <h1>Registro de empleados FAR</h1>
+    <div id="intro">
+      <img src="Plasticos-FAR.png" alt="Imagen logo FAR" />
+    </div>
+    <h2>Registrar empleado</h2>
+    <form id="registro-form">
+      <label for="nombre">Nombre del empleado:</label>
+      <input type="text" id="nombre" required /><br />
+
+      <label for="puesto">Puesto:</label>
+      <input type="text" id="puesto" required /><br />
+
+      <label for="identificacion">Número de identificación:</label>
+      <input type="text" id="identificacion" required /><br />
+
+      <button type="submit">Guardar empleado</button>
+    </form>
+
+    <h2>Lista de empleados</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Puesto</th>
+          <th>ID</th>
+        </tr>
+      </thead>
+      <tbody id="empleados-lista"></tbody>
+    </table>
+    <script src="qr-scanner.js"></script>
+    <script src="app.js"></script>
+    <script src="inicio.js"></script>
+  </body>
+</html>
