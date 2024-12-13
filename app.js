@@ -17,6 +17,10 @@ const db = firebase.firestore();
 const formulario = document.getElementById("registro-form");
 const listaEmpleados = document.getElementById("empleados-lista");
 
+function cleandata(userinput) {
+  return DOMPurify.sanitize(userinput);
+}
+
 // Crear empleado
 formulario.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -43,7 +47,7 @@ formulario.addEventListener("submit", (e) => {
     });
 });
 
-// Listar empleados
+// listar empleados
 function listarEmpleados() {
   listaEmpleados.innerHTML = "";
   db.collection("empleados")
@@ -52,15 +56,25 @@ function listarEmpleados() {
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         const empleado = doc.data();
-        const fila = `
-          <tr>
-            <td>${empleado.nombre}</td>
-            <td>${empleado.puesto}</td>
-            <td>${empleado.identificacion}</td>
-            
-          </tr>
-        `;
-        listaEmpleados.innerHTML += fila;
+
+        // Crear fila
+        const fila = document.createElement("tr");
+
+        // Crear celdas sanitizadas
+        const celdaNombre = document.createElement("td");
+        celdaNombre.textContent = cleandata(empleado.nombre);
+        fila.appendChild(celdaNombre);
+
+        const celdaPuesto = document.createElement("td");
+        celdaPuesto.textContent = cleandata(empleado.puesto);
+        fila.appendChild(celdaPuesto);
+
+        const celdaIdentificacion = document.createElement("td");
+        celdaIdentificacion.textContent = cleandata(empleado.identificacion);
+        fila.appendChild(celdaIdentificacion);
+
+        // Agregar fila a la tabla
+        listaEmpleados.appendChild(fila);
       });
     });
 }
